@@ -10,7 +10,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-list dense>
-          <v-list-item-group v-model="selectedItem" color="primary">
+          <v-list-item-group color="primary" <!--v-model="selectedItem"-->
             <v-list-item v-for="(item, i) in items" :key="i">
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>
@@ -30,13 +30,7 @@
       <v-row align="left">
         <h1>Titulo NavBar</h1>
       </v-row>
-      <v-avatar class="text-xs-right">
-        <v-btn @click="hola">
-          <v-avatar color="red">
-            <span class="white--text text-h5">CJ</span>
-          </v-avatar>
-        </v-btn>
-      </v-avatar>
+      <NavbarUsuario />
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
@@ -46,7 +40,6 @@
         <router-view></router-view>
       </v-container>
     </v-main>
-
     <v-footer app>
       <h1>Pie de pagina</h1>
     </v-footer>
@@ -54,13 +47,14 @@
 </template>
 
 <script>
+import NavbarUsuario from "@/components/navBarUsuario/NavbarUsuario";
 export default {
   name: "App",
   data() {
     return {
       items: [
         { title: "Inicio", icon: "mdi-view-dashboard", to: "/" },
-        { title: "Pruebas", icon: "mdi-book ", to: "/about" },
+        { title: "Pruebas", icon: "mdi-book ", to: "/pruebas" },
         { title: "Resultados", icon: "mdi-book-open", to: "resultado" },
         { title: "Correos", icon: "mdi-email", to: "/correo" },
 
@@ -68,11 +62,11 @@ export default {
       right: null,
     };
   },
+  components:{
+    NavbarUsuario,
+  },
   methods:{
-    hola(){
-      console.log("Apretando Imagen perfil")
-    }
-  }
+  },
 };
 </script>
 

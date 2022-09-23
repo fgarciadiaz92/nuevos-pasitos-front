@@ -1,4 +1,5 @@
-<template>
+<template v-for="item in listadoDatos">
+
   <v-container class="pa-4 text-center">
     <div class="text-center"></div>
     <v-row align="left">
@@ -72,33 +73,54 @@
       </template>
     </v-row>
     <div class="text-center p-t">
-      <v-pagination v-model="page" :length="4" circle></v-pagination>
-      <h4>Total :{{ cantidadDatos }}</h4>
     </div>
-    <div class="text-center">
-      <v-dialog v-model="dialog" width="500">
-        <v-card>
-          <v-card-title class="text-h5 grey lighten-2">
-            Nueva Prueba
-          </v-card-title>
-
-          <v-card-text> OÑAA </v-card-text>
-
-          <v-divider></v-divider>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false">
-              I accept
+    <template>
+      <v-row justify="center">
+        <v-dialog
+          v-model="dialog"
+          persistent
+          max-width="290"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              Open Dialog
             </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </div>
+          </template>
+          <v-card>
+            <v-card-title class="text-h5">
+              Use Google's location service?
+            </v-card-title>
+            <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+              >
+                Disagree
+              </v-btn>
+              <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+              >
+                Agree
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </template>
   </v-container>
 </template>
 <script>
-import axios from "axios";
+import axios from "@/store/axios";
 
 export default {
   data: () => ({
@@ -117,14 +139,13 @@ export default {
     transparent: "rgba(255, 255, 255, 0)",
   }),
   methods: {
-    cargaDatos() {
-      axios
-        .get("http://127.0.0.1:8000/api/prueba/")
-        .then((response) => {
-          this.valores = response.data;
-          console.log(response.data);
-        })
-        .catch((e) => console.log(e));
+    async cargaDatos() {
+      let valores=await axios.get("/prueba")
+      this.valores=valores.data
+    },
+    async cargaDatosDetalles() {
+      let valores=await axios.get("/prueba/1")
+      console.log("SOY EL DETALLE",valores.data)
     },
     modalNuevoPrueba() {
       this.dialog = true;
@@ -133,13 +154,13 @@ export default {
   },
   mounted() {
     this.cargaDatos();
+    this.cargaDatosDetalles()
   },
   computed: {
     listadoDatos() {
       return this.valores;
     },
     cantidadDatos() {
-      return this.valores.length;
     },
   },
 };
