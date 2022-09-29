@@ -40,7 +40,6 @@
       </v-btn>
     </v-col>
   </div>
-
 </template>
 
 <script>
@@ -55,8 +54,8 @@ export default {
         {id:"1",nombre:"Verdadero"},
         {id:"2",nombre:"Falso"}
       ],
-      /*datosEnviado:[],*/
       valor:0,
+      pruebaFinal: [],
     }
   },
   methods:{
@@ -64,7 +63,16 @@ export default {
       console.log("Pregunta",pregunta)
     },
     guardarPregunta(){
-      const datosEnviado=[]
+      let variables=
+        {
+          numeroPregunta:this.numeroPregunta,
+          pregunta:this.pregunta,
+          respuesta:this.valor
+        }
+        console.log("Varibales",variables)
+      this.pruebaFinal=[variables,...this.pruebaFinal]
+      console.log("Resultado Final",this.pruebaFinal)
+     /* const datosEnviado=[]
       console.log(datosEnviado.length)
       if(datosEnviado.length === 0){
         let variables=
@@ -76,7 +84,7 @@ export default {
         datosEnviado.push(variables)
 
       }
-      console.log(datosEnviado)
+      console.log(datosEnviado)*/
 
     },
     datosEnviado(){

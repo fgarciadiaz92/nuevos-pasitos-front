@@ -18,7 +18,7 @@
         <v-card-actions>
           <v-chip class="ma-2" color="deep-purple accent-4" outlined>
             <v-icon left> mdi-clock-time-seven-outline </v-icon>
-            {{item.duracion_prueba }} Min
+            {{item.duracion_prueba }}
           </v-chip>
           <v-chip class="ma-2" color="deep-purple accent-4" outlined>
             <v-icon left> mdi-account-multiple </v-icon>

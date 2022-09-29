@@ -15,7 +15,6 @@
 <script>
 import NuevaPrueba from "@/components/pruebaComponente/NuevaPrueba";
 import Tarjeta from "@/components/pruebaComponente/Tarjeta";
-import axios from "@/store/axios";
 export default {
   name: "Prueba",
   components: {

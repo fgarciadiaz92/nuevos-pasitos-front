@@ -60,7 +60,7 @@
               </v-col>
               <v-col cols="12">
                 <v-select
-                  :items="['Porcentaje','Escala de notas','Aprodado/Reprobado']"
+                  :items=listadoDatos
                   label="Tipo Calificacion*"
                   required
                   v-model="prueba.tipo_calificacion"
@@ -94,19 +94,35 @@
 </template>
 
 <script>
+import axios from "@/store/axios";
+
 export default {
   name: "NuevaPrueba",
   data () {
     return {
       dialog: false,
       prueba:{},
+      valores:[]
     }
   },
   methods:{
     enviarDatos(){
       console.log(this.prueba)
-    }
-  }
+    },
+      async cargaDatos() {
+        let valores = await axios.get("/tipo-calificacion");
+        this.valores = valores.data;
+      },
+  },
+  mounted() {
+    this.cargaDatos();
+
+  },
+  computed: {
+    listadoDatos() {
+      return this.valores.map(index=>index.nombre_calificacion);
+    },
+  },
 };
 </script>
 
